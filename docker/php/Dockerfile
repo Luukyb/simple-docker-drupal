@@ -1,4 +1,4 @@
-FROM php:5-apache
+FROM php:5-fpm
 
 RUN apt-get update -qq \
   && apt-get install wget mysql-client -yq
