@@ -35,6 +35,7 @@ COPY conf.d/* /usr/local/etc/php/conf.d/
 RUN chmod 644 /usr/local/etc/php/conf.d/*
 RUN chgrp staff /usr/local/etc/php/conf.d/*
 
+# Install & configure gosu
 # Many thanks to https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
 RUN apt-get update && apt-get -y --no-install-recommends install \
     ca-certificates \
