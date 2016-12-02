@@ -1,9 +1,5 @@
 version: '2'
 services:
-  backend:
-    image: debian:jessie
-    volumes:
-      - .:/var/www/html
   nginx:
     build: docker/nginx
     links:
@@ -11,14 +7,14 @@ services:
     ports:
       - ${IP_ADDRESS}:80:80
     volumes_from:
-      - backend
+      - php
   php:
     build: docker/php
-    volumes_from:
-      - backend
     links:
       - db:db.${PROJECT}.dev
       - mailhog
+    volumes:
+      - .:/var/www/html
   db:
     image: mariadb
     environment:
