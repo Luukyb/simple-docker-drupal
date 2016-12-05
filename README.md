@@ -83,20 +83,23 @@ docker-compose run --rm php bash
 #### Using Docker Compose in the project directory
 
 ```sh
-docker-compose build  #Build or rebuild services.
-docker-compose up     #Create and start containers (foreground).
-docker-compose up -d  #Create and start containers (background).
-docker-compose ps     #List containers.
-docker-compose stop   #Stop services.
-docker-compose down   #Remove containers, networks, images, and volumes.
+docker-compose build  # Build or rebuild services.
+docker-compose up     # Create and start containers (foreground).
+docker-compose up -d  # Create and start containers (background).
+docker-compose ps     # List containers.
+docker-compose stop   # Stop services.
+docker-compose down   # Remove containers, networks, images, and volumes.
 ```
 
 #### Using Docker for system-wide management & cleanup
 
 ```sh
-docker ps                         #List running containers.
-docker ps -a                      #List all containers.
-docker stop $(docker ps -q)       #Stop all running containers
-docker rm $(docker ps -a -q)      #Delete all containers. Use with caution!
-docker rmi -f $(docker images -q) #Delete all images.
+docker ps                                              # List running containers.
+docker ps -a                                           # List all containers.
+docker images                                          # List all images.
+docker stop $(docker ps -q)                            # Stop all running containers
+docker rmi $(docker images -f "dangling=true" -q)      # Delete dangling images.
+docker volume rm $(docker volume ls -qf dangling=true) # Delete dangling volumes.
+# Use with caution:
+docker rm $(docker ps -q -f status=exited)  # Delete all containers that are not running.
 ```
