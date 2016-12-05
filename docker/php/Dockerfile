@@ -56,7 +56,7 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
 
 # Create additional Drupal file directories, and set permissions.
 RUN chown www-data:www-data /var/www
-RUN mkdir -p /var/www/shared/private && chown -R www-data:www-data /var/www/shared
+RUN mkdir -p /var/www/shared/private/tmp && chown -R www-data:www-data /var/www/shared
 
 # Set a Docker entrypoint script:
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
