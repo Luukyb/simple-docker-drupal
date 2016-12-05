@@ -63,7 +63,8 @@ docker-compose run --rm php bash
 ```
 
 - Windows users: This is unavailable, for now. Docker Compose for Windows
-  currently does not support [interactive mode](https://github.com/docker/compose/issues/3194).
+  currently does not support
+  [interactive mode](https://github.com/docker/compose/issues/3194).
 
 #### Using Docker Compose in the project directory
 
@@ -82,6 +83,6 @@ docker-compose down   #Remove containers, networks, images, and volumes.
 docker ps                         #List running containers.
 docker ps -a                      #List all containers.
 docker stop $(docker ps -q)       #Stop all running containers
-docker rm $(docker ps -a -q)      #Delete all containers.
+docker rm $(docker ps -a -q)      #Delete all containers. Use with caution!
 docker rmi -f $(docker images -q) #Delete all images.
 ```
