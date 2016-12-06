@@ -1,15 +1,13 @@
 version: '2'
 services:
   nginx:
-    image: nginx
+    build: docker/nginx
     links:
       - php
     ports:
       - ${IP_ADDRESS}:80:80
     volumes_from:
       - php
-    volumes:
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
   php:
     build: docker/php
     links:

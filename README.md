@@ -4,7 +4,7 @@ A simple Docker & Drupal for development. This is all.
 
 ## Nginx + PHP 5.6
 
-This branch is still in progress. For more stable, use the nginx branches.
+This branch is still in progress.
 
 What's included:
 
@@ -27,9 +27,11 @@ All your Drupal files should be placed into the folder "web".
 mkdir web
 ```
 
-Add the project domain to your local Hosts file, and point it to `127.0.100.100`.
+Add the project domain to your local Hosts file, and point it to
+`127.0.100.100`.
 
-* Paste the following into `/etc/hosts` (`c:\Windows\System32\drivers\etc\hosts` for Windows users):
+* Paste the following into `/etc/hosts` (`c:\Windows\System32\drivers\etc\hosts`
+  for Windows users):
 
 ```
 127.0.100.100  drupal7.dev db.drupal7.dev
@@ -67,6 +69,7 @@ This is for development !!
 - [Drupal Site](http://drupal.dev)
 - [phpMyAdmin](http://drupal.dev:8080)
 - [MailHog](http://drupal.dev:8025)
+- [Solr Admin](http://drupal.dev:8983)
 
 ### Other useful shell commands
 
@@ -88,6 +91,7 @@ docker-compose up     # Create and start containers (foreground).
 docker-compose up -d  # Create and start containers (background).
 docker-compose ps     # List containers.
 docker-compose stop   # Stop services.
+# Use with caution - this will blow away your project's database:
 docker-compose down   # Remove containers, networks, images, and volumes.
 ```
 
@@ -100,6 +104,6 @@ docker images                                          # List all images.
 docker stop $(docker ps -q)                            # Stop all running containers
 docker rmi $(docker images -f "dangling=true" -q)      # Delete dangling images.
 docker volume rm $(docker volume ls -qf dangling=true) # Delete dangling volumes.
-# Use with caution:
-docker rm $(docker ps -q -f status=exited)  # Delete all containers that are not running.
+# Use with caution - this will blow away all local databases that are not running:
+docker rm $(docker ps -q -f status=exited)             # Delete all containers that are stopped.
 ```

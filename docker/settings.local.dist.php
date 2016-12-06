@@ -28,6 +28,9 @@ $databases = array(
  * Variable overrides.
  */
 $conf['drupal_http_request_fails'] = FALSE;
+$conf['smtp_on'] = 0;
+$conf['smtp_password'] = '';
+$conf['googleanalytics_account'] = 'UA-11111111-1';
 
 /**
  * Redis settings.
@@ -40,4 +43,4 @@ $conf['cache_backends'][] = 'sites/all/modules/contrib/redis/redis.autoload.inc'
 /**
  * Apache Solr settings.
  */
-$conf['apachesolr_environments']['solr']['url'] = 'http://solr:8983/solr/solr';
+$conf['apachesolr_environments']['solr']['url'] = 'http://solr:8983/solr/mycore';

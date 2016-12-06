@@ -37,11 +37,6 @@ RUN apt-get update -qq && apt-get install -yq \
         redis-tools
 RUN pecl install redis-2.2.8 && docker-php-ext-enable redis
 
-# Copy PHP configs:
-COPY conf.d/* /usr/local/etc/php/conf.d/
-RUN chmod 644 /usr/local/etc/php/conf.d/*
-RUN chgrp staff /usr/local/etc/php/conf.d/*
-
 # Install & configure gosu:
 # Many thanks to https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
 RUN apt-get update && apt-get -y --no-install-recommends install \
@@ -53,6 +48,11 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
     && gpg --verify /usr/local/bin/gosu.asc \
     && rm /usr/local/bin/gosu.asc \
     && chmod +x /usr/local/bin/gosu
+
+# Copy PHP configs:
+COPY conf.d/* /usr/local/etc/php/conf.d/
+RUN chmod 644 /usr/local/etc/php/conf.d/*
+RUN chgrp staff /usr/local/etc/php/conf.d/*
 
 # Create additional Drupal file directories, and set permissions.
 RUN chown www-data:www-data /var/www
