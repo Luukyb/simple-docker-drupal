@@ -14,6 +14,8 @@ services:
     build: docker/php
     volumes_from:
       - backend
+    environment:
+      - BUILD_ENV=${BUILD_ENV}
   db:
     image: mariadb
     environment:
