@@ -1,2 +1,3 @@
 devel
 stage_file_proxy
+views_ui
