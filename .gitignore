@@ -4,6 +4,3 @@
 # Ignore database dump files
 *.sql
 *.gz
-
-# Ignore the /web directory, assuming it is tracked by another repository:
-/web

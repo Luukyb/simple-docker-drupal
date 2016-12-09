@@ -23,10 +23,6 @@ specific containers to use this project.
 
 All your Drupal files should be placed into the folder "web".
 
-```sh
-mkdir web
-```
-
 Add the project domain to your local Hosts file, and point it to
 `127.0.100.100`.
 
@@ -77,10 +73,6 @@ This is for development !!
 ```sh
 docker-compose run --rm php bash
 ```
-
-- Windows users: This is unavailable, for now. Docker Compose for Windows
-  currently does not support
-  [interactive mode](https://github.com/docker/compose/issues/3194).
 
 #### Using Docker Compose in the project directory
 
