@@ -34,7 +34,7 @@ Add the project domain to your local Hosts file, and point it to
   for Windows users):
 
 ```
-127.0.100.100  drupal7.dev db.drupal7.dev
+127.0.100.100  drupal.dev db.drupal.dev solr.drupal.dev
 ```
 
 * Mac OSX users: Run the following to attach an unused IP to the lo0 interface.
@@ -52,7 +52,7 @@ docker-compose up -d
 Import your database or install your site.
 
 ```sh
-docker-compose run --rm php ./../vendor/bin/drush site-install
+docker-compose run --rm php drush site-install
 ```
 
 ### Database credentials

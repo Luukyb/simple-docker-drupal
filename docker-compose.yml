@@ -14,7 +14,7 @@ services:
       - db:db.${PROJECT}.dev
       - mailhog
       - redis
-      - solr
+      - solr:solr.${PROJECT}.dev
     volumes:
       - .:/var/www/html
   db:

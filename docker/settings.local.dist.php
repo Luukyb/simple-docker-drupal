@@ -43,4 +43,4 @@ $conf['cache_backends'][] = 'sites/all/modules/contrib/redis/redis.autoload.inc'
 /**
  * Apache Solr settings.
  */
-$conf['apachesolr_environments']['solr']['url'] = 'http://solr:8983/solr/mycore';
+$conf['apachesolr_environments']['solr']['url'] = 'http://solr.drupal.dev:8983/solr/mycore';
