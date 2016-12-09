@@ -32,6 +32,11 @@ RUN apt-get update -qq && apt-get install -yq git golang-go \
     && export GOPATH=/opt/go \
     && go get github.com/mailhog/mhsendmail
 
+# Install Redis support:
+RUN apt-get update -qq && apt-get install -yq \
+        redis-tools
+RUN pecl install redis-2.2.8 && docker-php-ext-enable redis
+
 # Install & configure gosu:
 # Many thanks to https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
 RUN apt-get update && apt-get -y --no-install-recommends install \

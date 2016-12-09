@@ -65,6 +65,7 @@ This is for development !!
 - [Drupal Site](http://drupal.dev)
 - [phpMyAdmin](http://drupal.dev:8080)
 - [MailHog](http://drupal.dev:8025)
+- [Solr Admin](http://drupal.dev:8983)
 
 ### Other useful shell commands
 
