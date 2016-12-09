@@ -45,6 +45,9 @@ Run docker compose.
 docker-compose up -d
 ```
 
+* The first time you run `docker-compose up`, Docker Compose will automatically
+  import db dump files that are placed in `/docker/db/ref`.
+
 Import your database or install your site.
 
 ```sh

@@ -26,6 +26,9 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - ${IP_ADDRESS}:3306:3306
+    volumes:
+      - ./docker/db/conf.d:/etc/mysql/conf.d
+      - ./docker/db/ref:/docker-entrypoint-initdb.d
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     environment:

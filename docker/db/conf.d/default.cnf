@@ -1,0 +1,4 @@
+# Custom MySQL settings for Simple Docker Drupal.
+
+[mysqld]
+max_allowed_packet=256M
