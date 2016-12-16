@@ -1,24 +1,13 @@
 #!/bin/bash
 
-# To setup a dev build you must run:
-# $ export BUILD_ENV=dev
-# prior to starting docker container.
-
-# Get Enviroment Variable.
-build_env=$BUILD_ENV
-
 # Set drush command for container.
-drush="docker-compose run --rm php drush"
+drush="drush"
 
 # Set build type.
 dev_setup=false
-if [[ $build_env = "dev" ]]; then
+if [[ $BUILD_ENV = "dev" ]]; then
   dev_setup=true
 fi
-
-# For testing.
-echo "BUILD_ENV: $build_env"
-echo "DEV_SETUP: $dev_setup"
 
 # Start build.
 if $dev_setup ; then
