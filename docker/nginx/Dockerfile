@@ -21,6 +21,8 @@ RUN mkdir -p /var/www && chown nginx:nginx /var/www
 
 # Set a Docker entrypoint script:
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod 755 /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
 
 WORKDIR /var/www/html/web
