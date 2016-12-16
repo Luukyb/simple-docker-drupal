@@ -25,9 +25,16 @@ Run docker compose.
 $ docker-compose up -d
 ```
 
-Import your database or install your site.
+Go into docker container.
 ```sh
-$  docker-compose run --rm php ./../vendor/bin/drush site-install
+$ docker-compose exec php /bin/bash
+```
+
+Build local.
+Download db to project root production-db.sql.
+```sh
+cd /var/www/web
+$ ../scripts/drupal-update.sh
 ```
 
 ### Database credentials

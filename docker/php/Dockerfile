@@ -28,5 +28,7 @@ RUN php drush core-status
 # Make `drush` executable as a command from anywhere. Destination can be anywhere on $PATH.
 RUN chmod +x drush
 RUN mv drush /usr/local/bin
+# Install registry_rebuild
+RUN drush @none dl registry_rebuild-7.x
 
 WORKDIR /var/www/web
