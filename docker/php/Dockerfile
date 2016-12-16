@@ -1,4 +1,4 @@
-FROM php:5.6-fpm
+FROM php:5-fpm
 
 # Install additional tools:
 RUN apt-get update -qq && apt-get install -yq \
@@ -55,6 +55,8 @@ RUN mkdir -p /var/www/shared/private/tmp && chown -R www-data:www-data /var/www/
 
 # Set a Docker entrypoint script:
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod 755 /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["php-fpm"]
 
 WORKDIR /var/www/html/web
