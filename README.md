@@ -25,10 +25,15 @@ Run docker compose.
 $ docker-compose up -d
 ```
 
+Go into docker container.
+```sh
+$ docker-compose exec php /bin/bash
+```
+
 Build local.
 Download db to project root production-db.sql.
 ```sh
-$ cd /docroot
+cd /var/www/web
 $ ../scripts/drupal-update.sh
 ```
 
