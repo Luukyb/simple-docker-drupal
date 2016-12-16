@@ -20,12 +20,6 @@ specific containers to use this project.
 ### Get started
 All your Drupal files should be placed into the folder "web".
 
-Add your env variable for dev.
-```sh
-$ cd to project root
-$ export BUILD_ENV=dev
-```
-
 Run docker compose.
 ```sh
 $ docker-compose up -d
