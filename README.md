@@ -62,9 +62,9 @@ This is for development !!
 
 ### Links to local development environment & tools
 
-- [Drupal Site](http://drupal.dev)
-- [phpMyAdmin](http://drupal.dev:8080)
-- [MailHog](http://drupal.dev:8025)
+- Drupal Site: <http://drupal.dev>
+- phpMyAdmin: <http://drupal.dev:8080>
+- MailHog: <http://drupal.dev:8025>
 
 ### Other useful shell commands
 
@@ -74,27 +74,6 @@ This is for development !!
 docker-compose run --rm php bash
 ```
 
-#### Using Docker Compose in the project directory
+For more information on using Docker, please see [docker/README.md][].
 
-```sh
-docker-compose build  # Build or rebuild services.
-docker-compose up     # Create and start containers (foreground).
-docker-compose up -d  # Create and start containers (background).
-docker-compose ps     # List containers.
-docker-compose stop   # Stop services.
-# Use with caution - this will blow away your project's database:
-docker-compose down   # Remove containers, networks, images, and volumes.
-```
-
-#### Using Docker for system-wide management & cleanup
-
-```sh
-docker ps                                              # List running containers.
-docker ps -a                                           # List all containers.
-docker images                                          # List all images.
-docker stop $(docker ps -q)                            # Stop all running containers
-docker rmi $(docker images -f "dangling=true" -q)      # Delete dangling images.
-docker volume rm $(docker volume ls -qf dangling=true) # Delete dangling volumes.
-# Use with caution - this will blow away all local databases that are not running:
-docker rm $(docker ps -q -f status=exited)             # Delete all containers that are stopped.
-```
+[docker/README.md]: docker/README.md
