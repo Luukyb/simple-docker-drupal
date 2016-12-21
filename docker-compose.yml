@@ -1,19 +1,20 @@
 version: '2'
 services:
-  backend:
-    image: debian:jessie
-    volumes:
-      - .:/var/www
   nginx:
     build: docker/nginx
+    links:
+      - php
     ports:
-      - 80
+      - ${IP_ADDRESS}:80:80
     volumes_from:
-      - backend
+      - php
   php:
     build: docker/php
-    volumes_from:
-      - backend
+    links:
+      - db:db.${PROJECT}.dev
+      - mailhog
+    volumes:
+      - .:/var/www/html
   db:
     image: mariadb
     environment:
@@ -21,3 +22,19 @@ services:
       MYSQL_PASSWORD: drupal
       MYSQL_DATABASE: drupal
       MYSQL_ROOT_PASSWORD: root
+    ports:
+      - ${IP_ADDRESS}:3306:3306
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      UPLOAD_SIZE: 1G
+      PMA_USER: root
+      PMA_PASSWORD: root
+    links:
+      - db
+    ports:
+      - ${IP_ADDRESS}:8080:80
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - ${IP_ADDRESS}:8025:8025

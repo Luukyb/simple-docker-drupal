@@ -1,32 +1,62 @@
 FROM php:5-fpm
 
-RUN apt-get update -qq \
-  && apt-get install wget mysql-client -yq
+# Install additional tools:
+RUN apt-get update -qq && apt-get install -yq \
+        mysql-client \
+        nano \
+        vim \
+        wget
 
-# install the PHP extensions we need
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
+# install the PHP extensions we need:
+RUN apt-get update -qq && apt-get install -yq \
+        libpng12-dev \
+        libjpeg-dev \
+        libpq-dev \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-    && docker-php-ext-install gd mbstring opcache pdo pdo_mysql pdo_pgsql zip
-# set recommended PHP.ini settings
-# see https://secure.php.net/manual/en/opcache.installation.php
-RUN { \
-        echo 'opcache.memory_consumption=128'; \
-        echo 'opcache.interned_strings_buffer=8'; \
-        echo 'opcache.max_accelerated_files=4000'; \
-        echo 'opcache.revalidate_freq=60'; \
-        echo 'opcache.fast_shutdown=1'; \
-        echo 'opcache.enable_cli=1'; \
-    } > /usr/local/etc/php/conf.d/opcache-recommended.ini
+    && docker-php-ext-install exif gd mbstring opcache pdo pdo_mysql pdo_pgsql zip
 
-# Install drush.
+# Install Drush & Drush Registry Rebuild:
 # Download latest stable release using the code below or browse to github.com/drush-ops/drush/releases.
 RUN php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush.phar');" > drush
 # Or use our upcoming release: php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush-unstable.phar');" > drush
-# Test your install.
-RUN php drush core-status
 # Make `drush` executable as a command from anywhere. Destination can be anywhere on $PATH.
 RUN chmod +x drush
 RUN mv drush /usr/local/bin
+RUN drush dl -y --destination=/var/www/.drush registry_rebuild-7.x
+RUN chown -R www-data:www-data /var/www/.drush
 
-WORKDIR /var/www/web
+# Install Mailhog Sendmail support:
+RUN apt-get update -qq && apt-get install -yq git golang-go \
+    && mkdir -p /opt/go \
+    && export GOPATH=/opt/go \
+    && go get github.com/mailhog/mhsendmail
+
+# Install & configure gosu:
+# Many thanks to https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
+RUN apt-get update && apt-get -y --no-install-recommends install \
+    ca-certificates \
+    curl
+RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
+RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture)" \
+    && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture).asc" \
+    && gpg --verify /usr/local/bin/gosu.asc \
+    && rm /usr/local/bin/gosu.asc \
+    && chmod +x /usr/local/bin/gosu
+
+# Copy PHP configs:
+COPY conf.d/* /usr/local/etc/php/conf.d/
+RUN chmod 644 /usr/local/etc/php/conf.d/*
+RUN chgrp staff /usr/local/etc/php/conf.d/*
+
+# Create additional Drupal file directories, and set permissions.
+RUN chown www-data:www-data /var/www
+RUN mkdir -p /var/www/shared/private/tmp && chown -R www-data:www-data /var/www/shared
+
+# Set a Docker entrypoint script:
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod 755 /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["php-fpm"]
+
+WORKDIR /var/www/html/web
