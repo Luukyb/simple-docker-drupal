@@ -11,6 +11,10 @@ What's included:
 - Nginx
 - PHP-FPM 5.6
 - Mariadb
+- phpMyAdmin
+- MailHog
+- Redis
+- Solr
 
 Check the other branches of this repo for some more options.
 
@@ -77,6 +81,10 @@ This is for development !!
 ```sh
 docker-compose run --rm php bash
 ```
+
+- Windows users: This is unavailable, for now. Docker Compose for Windows
+  currently does not support
+  [interactive mode](https://github.com/docker/compose/issues/3194).
 
 #### Using Docker Compose in the project directory
 
